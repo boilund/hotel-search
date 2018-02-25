@@ -14,16 +14,41 @@ class App extends React.Component {
     };
   }
 
+  setErrorState(message) {
+    this.setState({
+      address: message,
+      lat: 0,
+      lng: 0
+    });
+  }
+
   handlePlaceSubmit(place) {
     axios.get(GEOCODE_ENDPOINT, { params: { address: place } })
     .then(results => {
-      const result = results.data.results[0];
-      const location = result.geometry.location;
-      this.setState({
-        address: result.formatted_address,
-        lat: location.lat,
-        lng: location.lng
-      });
+      const data = results.data;
+      const result = data.results[0];
+
+      switch (data.status) {
+        case 'OK' : {
+          const location = result.geometry.location;
+          this.setState({
+            address: result.formatted_address,
+            lat: location.lat,
+            lng: location.lng
+          });
+          break;
+        }
+        case 'ZERO_RESULTS': {
+          this.setErrorState('No results');
+          break;
+        }
+        default: {
+          this.setErrorState('Get an error');
+          break;
+        }
+      }
+    }).catch(() => {
+      this.setErrorState('Connection error');
     });
   }
 
