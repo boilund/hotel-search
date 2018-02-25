@@ -10,11 +10,15 @@ class App extends React.Component {
     };
   }
 
+  handlePlaceSubmit(place) {
+    console.log(place);
+  }
+
   render() {
     return (
     <div>
       <h1>Geocode Result</h1>
-      <SearchForm />
+      <SearchForm onSubmit={place => this.handlePlaceSubmit(place)} />
     </div>
     );
   }

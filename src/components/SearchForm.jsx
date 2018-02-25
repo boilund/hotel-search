@@ -1,4 +1,5 @@
 import * as React from "react";
+import PropTypes from "prop-types";
 
 class SearchForm extends React.Component {
 
@@ -13,17 +14,27 @@ class SearchForm extends React.Component {
     this.setState({place});
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.onSubmit(this.state.place);
+  }
+
   render() {
     return (
-      <form>
+      <form onSubmit={e => this.handleSubmit(e)}>
         <input
           type="text"
           value={this.state.place}
           onChange={e => this.handlePlaceChange(e.target.value)}
         />
+        <input type="submit" value="search" />
       </form>
     );
   }
 }
+
+SearchForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired
+};
 
 export default SearchForm;
