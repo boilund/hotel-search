@@ -2,18 +2,17 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import "../stylesheets/GeocodeResult.css";
 
-const GeocodeResult = ({ address, lat, lng }) => (
+const GeocodeResult = ({ address, location }) => (
   <ul className="geocode-result">
     <li>Address: {address}</li>
-    <li>Latitude: {lat}</li>
-    <li>Longitude: {lng}</li>
+    <li>Latitude: {location.lat}</li>
+    <li>Longitude: {location.lng}</li>
   </ul>
 );
 
 GeocodeResult.propTypes = {
   address: PropTypes.string,
-  lat: PropTypes.number.isRequired,
-  lng: PropTypes.number.isRequired
+  location: PropTypes.objectOf(PropTypes.number).isRequired
 };
 
 GeocodeResult.defaultProps = {

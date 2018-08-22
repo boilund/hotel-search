@@ -11,16 +11,20 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lat: 55.6133242,
-      lng: 12.976362
+      location: {
+        lat: 55.6133242,
+        lng: 12.976362
+      }
     };
   }
 
   setErrorState(message) {
     this.setState({
       address: message,
-      lat: 0,
-      lng: 0
+      location: {
+        lat: 0,
+        lng: 0
+      }
     });
   }
 
@@ -33,11 +37,9 @@ class App extends React.Component {
 
         switch (data.status) {
           case "OK": {
-            const location = result.geometry.location;
             this.setState({
               address: result.formatted_address,
-              lat: location.lat,
-              lng: location.lng
+              location: result.geometry.location
             });
             break;
           }
@@ -63,10 +65,9 @@ class App extends React.Component {
         <SearchForm onSubmit={place => this.handlePlaceSubmit(place)} />
         <GeocodeResult
           address={this.state.address}
-          lat={this.state.lat}
-          lng={this.state.lng}
+          location={this.state.location}
         />
-        <Map lat={this.state.lat} lng={this.state.lng} />
+        <Map location={this.state.location} />
       </div>
     );
   }
