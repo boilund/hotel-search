@@ -3,6 +3,7 @@ import { geocode } from "../domain/Geocoder";
 import SearchForm from "./SearchForm";
 import GeocodeResult from "./GeocodeResult";
 import Map from "./Map";
+import "../stylesheets/App.css";
 import "../stylesheets/index.css";
 
 class App extends React.Component {
@@ -54,14 +55,16 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Geocode Result</h1>
+      <div className="app">
+        <h1 className="app-title">Hotel search</h1>
         <SearchForm onSubmit={place => this.handlePlaceSubmit(place)} />
-        <GeocodeResult
-          address={this.state.address}
-          location={this.state.location}
-        />
-        <Map location={this.state.location} />
+        <div className="result-area">
+          <Map location={this.state.location} />
+          <GeocodeResult
+            address={this.state.address}
+            location={this.state.location}
+          />
+        </div>
       </div>
     );
   }
