@@ -10,10 +10,7 @@ const GEOCODE_ENDPOINT = "https://maps.googleapis.com/maps/api/geocode/json";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      lat: 0,
-      lng: 0
-    };
+    this.state = {};
   }
 
   setErrorState(message) {
