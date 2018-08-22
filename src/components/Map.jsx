@@ -3,28 +3,25 @@ import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 import "../stylesheets/Map.css";
 
 const InnerMap = withGoogleMap(props => {
-  const { position } = props;
-
   return (
     <GoogleMap
-      defaultZoom={10}
-      defaultCenter={{ lat: 55.6133242, lng: 12.976362 }}
+      defaultZoom={12}
+      defaultCenter={props.position}
+      center={props.position}
     >
-      {props.isMarkerShown && <Marker position={position} />}
+      <Marker {...props.marker} />
     </GoogleMap>
   );
 });
 
-const Map = props => {
-  const { lat, lng } = props;
+const Map = ({ lat, lng }) => {
   const position = { lat, lng };
-
   return (
     <InnerMap
       containerElement={<div />}
       mapElement={<div className="map" />}
       position={position}
-      isMarkerShown={position}
+      marker={position}
     />
   );
 };
